@@ -5,9 +5,10 @@ const authenticate = require('./controllers/authenticate');
 const logger = require('./middleware/Loggger');
 const Response = require('./models/Response');
 const apiAdvise = require('./middleware/ApiAdvise');
+const Auth = require('./middleware/Auth');
 
 //middlewares init
-app.use([logger, apiAdvise]);
+app.use([logger, Auth, apiAdvise]);
 
 // console.log(process.env);
 
@@ -17,7 +18,7 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use('/authenticate', authenticate);
 
-app.get('/', (req, res )=> res.send('hello world'));
+app.get('/', (req, res )=> res.set("Content-Type", 'application/json').send('hello world'));
 
 
 //Set static folder
