@@ -4,9 +4,16 @@ const app = express();
 const authenticate = require('./controllers/authenticate');
 const logger = require('./middleware/Loggger');
 const Response = require('./models/Response');
+const apiAdvise = require('./middleware/ApiAdvise');
 
-//logger init
-app.use(logger);
+//middlewares init
+app.use([logger, apiAdvise]);
+
+// console.log(process.env);
+
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 app.use('/authenticate', authenticate);
 
@@ -29,4 +36,5 @@ app.use((err, req, res, next)=>{
     res.json(Response.error(`500 Internal Server error: ${err.message}`));
 })
 
-app.listen(3000);
+let PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Application Started on port: ${PORT}`));
