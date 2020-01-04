@@ -5,7 +5,6 @@ class Response {
 
     constructor(body, success, message){
         this.body = body;
-        this.success = success || true;
         this.message = message;
     }
 
@@ -13,7 +12,6 @@ class Response {
         let res = new Response();
         
         res.message = message;
-        res.success = true;
         res.body = body;
         return res;
     }
@@ -22,7 +20,6 @@ class Response {
         let res = new Response();
         
         res.message = message;
-        res.success = false;
         return res;
     }
 }

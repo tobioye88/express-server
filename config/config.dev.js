@@ -1,7 +1,7 @@
 let config = {
     allowedRoutes: [
+        '/',
         '/authenticate',
-        '/'
     ]
 }
 
