@@ -6,6 +6,7 @@ const logger = require('./middleware/Loggger');
 const Response = require('./models/Response');
 const apiAdvise = require('./middleware/ApiAdvise');
 const fetch = require('node-fetch');
+const requireAuthentication = require('./middleware/Auth');
 
 //middlewares init
 app.use([logger, apiAdvise]);
@@ -17,6 +18,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/authenticate', authenticate);
+
+app.all('*', requireAuthentication);
 
 app.get('/', (req, res )=> res.send('hello world'));
 
@@ -39,7 +42,7 @@ app.get('/callSecondServer', (req, res) => {
 //Set static folder
 app.use(express.static(path.join(__dirname, 'public')))
 
-//error 400
+//error 404
 app.use((req, res)=>{
     res.status(404);
     res.json(Response.error("Page not found"));
